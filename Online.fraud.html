@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Fraud Awareness</title>
+
+    <style>
+        body {
+            background: #070b1e;
+            color: white;
+            font-family: Arial;
+            padding: 15px;
+        }
+
+        .header {
+            background: #123d85;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        h1, h3 {
+            color: #67e8f9;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px;
+            background: #174ca3;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #22d3ee;
+            color: black;
+        }
+
+        .card {
+            background: #131d3c;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            background: #26334e;
+            color: white;
+            border: 1px solid #4165a8;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result {
+            text-align: center;
+            padding: 20px;
+            background: #26334e;
+            border-radius: 10px;
+        }
+
+        .high { background: #7f1d1d; }
+        .medium { background: #92400e; }
+        .low { background: #14532d; }
+
+        .finding {
+            background: #26334e;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid yellow;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid white;
+            padding: 10px;
+        }
+
+        th {
+            background: #174ca3;
+        }
+
+        @media(max-width: 700px) {
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>ONLINE FRAUD AWARENESS</h1>
+    <p>Cyber Security Education and Fraud Risk Analyzer</p>
+    <p>Student: Trilok Chand | Class: ELCE 2</p>
+    <p>Roll No: 2026b02310016</p>
+</div>
+
+<div class="buttons">
+    <button onclick="showPage('home')">Fraud Analyzer</button>
+    <button onclick="showPage('overview')">Project Overview</button>
+    <button onclick="showPage('testing')">Testing</button>
+    <button onclick="showPage('readme')">README</button>
+</div>
+
+<!-- Home Page -->
+<div id="home" class="card">
+
+    <h3>Fraud Scenario Input</h3>
+
+    <button onclick="loadTest('otp')">OTP Fraud</button>
+    <button onclick="loadTest('upi')">UPI Fraud</button>
+    <button onclick="loadTest('link')">Phishing</button>
+    <button onclick="loadTest('safe')">Safe Test</button>
+
+    <label>What did you receive?</label>
+    <select id="type">
+        <option value="otp">OTP / PIN Call</option>
+        <option value="upi">UPI / QR Code</option>
+        <option value="link">Suspicious Link</option>
+        <option value="job">Fake Job</option>
+        <option value="safe">Official Bank App</option>
+    </select>
+
+    <label>Who contacted you?</label>
+    <select id="sender">
+        <option value="unknown">Unknown Number</option>
+        <option value="bank">Bank Officer</option>
+        <option value="friend">Friend</option>
+        <option value="official">Official App</option>
+    </select>
+
+    <label>What information is requested?</label>
+    <select id="ask">
+        <option value="otp">OTP / PIN / CVV</option>
+        <option value="screen">Screen Sharing</option>
+        <option value="money">Advance Money</option>
+        <option value="link">Click Link</option>
+        <option value="nothing">Nothing</option>
+    </select>
+
+    <label>Enter Message</label>
+    <textarea id="message" rows="4"
+    placeholder="Enter suspicious message"></textarea>
+
+    <button onclick="checkFraud()">CHECK FRAUD RISK</button>
+
+</div>
+
+<!-- Result -->
+<div class="card">
+    <h3>Risk Assessment Result</h3>
+
+    <div id="result" class="result">
+        <h1 id="score">--</h1>
+        <h2 id="risk">Waiting for Input</h2>
+    </div>
+
+    <h3>Findings and Safe Actions</h3>
+    <div id="findings">
+        Select a test to check fraud risk.
+    </div>
+</div>
+
+<!-- Overview -->
+<div id="overview" class="card hidden">
+
+    <h3>Project Overview</h3>
+
+    <p>
+        Online fraud is increasing day by day.
+        People become victims of OTP fraud,
+        UPI fraud, phishing links and fake job offers.
+        This project helps users understand online fraud.
+    </p>
+
+    <h3>Project Objectives</h3>
+
+    <ul>
+        <li>Understand online fraud.</li>
+        <li>Identify suspicious messages.</li>
+        <li>Learn online safety.</li>
+        <li>Spread cyber security awareness.</li>
+    </ul>
+
+    <h3>Types of Online Fraud</h3>
+
+    <table>
+        <tr>
+            <th>Fraud</th>
+            <th>Safety</th>
+        </tr>
+        <tr>
+            <td>OTP Fraud</td>
+            <td>Never share OTP</td>
+        </tr>
+        <tr>
+            <td>UPI Fraud</td>
+            <td>Never share PIN</td>
+        </tr>
+        <tr>
+            <td>Phishing</td>
+            <td>Check website links</td>
+        </tr>
+        <tr>
+            <td>Fake Job</td>
+            <td>Verify company</td>
+        </tr>
+    </table>
+
+</div>
+
+<!-- Testing -->
+<div id="testing" class="card hidden">
+
+    <h3>Testing</h3>
+
+    <table>
+        <tr>
+            <th>Test ID</th>
+            <th>Scenario</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>TC-01</td>
+            <td>OTP Fraud</td>
+            <td>High Risk</td>
+        </tr>
+        <tr>
+            <td>TC-02</td>
+            <td>UPI Fraud</td>
+            <td>High Risk</td>
+        </tr>
+        <tr>
+            <td>TC-03</td>
+            <td>Phishing</td>
+            <td>High Risk</td>
+        </tr>
+        <tr>
+            <td>TC-04</td>
+            <td>Safe Transaction</td>
+            <td>Low Risk</td>
+        </tr>
+    </table>
+
+</div>
+
+<!-- README -->
+<div id="readme" class="card hidden">
+
+    <h3>Project README</h3>
+
+    <p>Project Name: Online Fraud Awareness</p>
+    <p>Student Name: Trilok Chand</p>
+    <p>Class: ELCE 2</p>
+
+    <h3>Technologies Used</h3>
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+
+    <h3>Cyber Safety Rules</h3>
+
+    <ul>
+        <li>Never share OTP.</li>
+        <li>Do not click unknown links.</li>
+        <li>Never share UPI PIN.</li>
+        <li>Report cyber fraud on 1930.</li>
+    </ul>
+
+</div>
+
+<script>
+
+// Change page
+function showPage(page) {
+
+    var pages = ["home", "overview", "testing", "readme"];
+
+    for (var i = 0; i < pages.length; i++) {
+        document.getElementById(pages[i])
+        .classList.add("hidden");
+    }
+
+    document.getElementById(page)
+    .classList.remove("hidden");
+}
+
+// Load sample test
+function loadTest(test) {
+
+    if (test == "otp") {
+        type.value = "otp";
+        sender.value = "bank";
+        ask.value = "otp";
+        message.value = "Share OTP for KYC verification.";
+    }
+
+    else if (test == "upi") {
+        type.value = "upi";
+        sender.value = "unknown";
+        ask.value = "otp";
+        message.value = "Enter PIN to receive money.";
+    }
+
+    else if (test == "link") {
+        type.value = "link";
+        sender.value = "unknown";
+        ask.value = "link";
+        message.value = "Click this link to update KYC.";
+    }
+
+    else {
+        type.value = "safe";
+        sender.value = "official";
+        ask.value = "nothing";
+        message.value = "Checking balance in official bank app.";
+    }
+
+    checkFraud();
+}
+
+// Check fraud risk
+function checkFraud() {
+
+    var score = 0;
+    var notes = [];
+
+    var fraud = document.getElementById("type").value;
+    var person = document.getElementById("sender").value;
+    var info = document.getElementById("ask").value;
+    var msg = document.getElementById("message").value.toLowerCase();
+
+    if (info == "otp") {
+        score += 40;
+        notes.push("Never share OTP or PIN.");
+    }
+
+    if (info == "screen") {
+        score += 30;
+        notes.push("Screen sharing is dangerous.");
+    }
+
+    if (info == "money") {
+        score += 35;
+        notes.push("Do not pay unknown people.");
+    }
+
+    if (info == "link") {
+        score += 25;
+        notes.push("Avoid suspicious links.");
+    }
+
+    if (person == "unknown") {
+        score += 20;
+        notes.push("Unknown sender detected.");
+    }
+
+    if (person == "bank") {
+        score += 10;
+        notes.push("Verify the bank caller.");
+    }
+
+    if (fraud == "link") {
+        score += 15;
+        notes.push("Check website address.");
+    }
+
+    if (fraud == "upi") {
+        notes.push("Never enter PIN to receive money.");
+    }
+
+    if (fraud == "job") {
+        score += 20;
+        notes.push("Verify job offers.");
+    }
+
+    if (/otp|pin|password|urgent|blocked|kyc|prize|cvv/.test(msg)) {
+        score += 15;
+        notes.push("Suspicious words found in message.");
+    }
+
+    if (fraud == "safe" && person == "official" && info == "nothing") {
+        score = 5;
+        notes.push("No obvious warning sign found.");
+    }
+
+    if (score > 100) {
+        score = 100;
+    }
+
+    var box = document.getElementById("result");
+    box.className = "result";
+
+    document.getElementById("score").innerText =
+        score + " / 100";
+
+    if (score >= 70) {
+        box.classList.add("high");
+        document.getElementById("risk").innerText = "HIGH RISK";
+        notes.push("Do not share information or send money.");
+    }
+
+    else if (score >= 40) {
+        box.classList.add("medium");
+        document.getElementById("risk").innerText = "MEDIUM RISK";
+        notes.push("Verify the sender first.");
+    }
+
+    else {
+        box.classList.add("low");
+        document.getElementById("risk").innerText = "LOW RISK";
+        notes.push("Stay alert and use official apps.");
+    }
+
+    var output = document.getElementById("findings");
+    output.innerHTML = "";
+
+    for (var i = 0; i < notes.length; i++) {
+        var item = document.createElement("p");
+        item.className = "finding";
+        item.innerText = "✔ " + notes[i];
+        output.appendChild(item);
+    }
+}
+
+</script>
+
+</body>
+</html>
